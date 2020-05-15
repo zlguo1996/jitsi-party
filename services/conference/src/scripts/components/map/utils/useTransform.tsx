@@ -21,7 +21,6 @@ interface Store {
 }
 
 interface Params {
-  matrix: DOMMatrix | DOMMatrixReadOnly,
   committedMatrix: DOMMatrix | DOMMatrixReadOnly,
   clientPosition: [number, number]
 }
@@ -48,15 +47,21 @@ export const useStore = () => {
 }
 
 function useTransformStore(params: Params) {
-  return useLocalStore<Store, Params>(
+  const className = useStyles({matrix: params.committedMatrix}).antiRotation
+
+  return useLocalStore<Store>(
     source => ({
-      antiRotationClass: useStyles({matrix: source.matrix}).antiRotation,
+      antiRotationClass: className,
       local2Global: (position: [number, number]) => (
-        addV(source.clientPosition, transformPoint2D(source.matrix, position))),
+        addV(source.clientPosition, transformPoint2D(source.committedMatrix, position))),
       global2Local: (position: [number, number]) => (
-        transformPoint2D(source.matrix.inverse(), subV(position, source.clientPosition))),
+        transformPoint2D(source.committedMatrix.inverse(), subV(position, source.clientPosition))),
     }),
-    params,
+    {
+      className,
+      committedMatrix: params.committedMatrix,
+      clientPosition: params.clientPosition,
+    },
   )
 }
 

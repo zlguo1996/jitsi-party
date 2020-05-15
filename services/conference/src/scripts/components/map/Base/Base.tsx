@@ -114,7 +114,6 @@ export const Base: React.FC<BaseProps> = (props: BaseProps) => {
   const classes = useStyles(styleProps)
 
   const transformParams = {
-    matrix,
     committedMatrix,
     clientPosition: getContainerAnchor(container),
   }
@@ -129,6 +128,7 @@ export const Base: React.FC<BaseProps> = (props: BaseProps) => {
     </div>
   )
 }
+Base.displayName = 'MapBase'
 
 function limitScale(currentScale: number, scale: number): number {
   const targetScale = currentScale * scale
