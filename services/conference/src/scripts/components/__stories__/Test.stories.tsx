@@ -12,7 +12,7 @@ export const test = () => {
 const m = observable({
   l1: {
     l2: {
-      l3: 0,
+      l3: 'a',
     },
   },
 })
@@ -21,7 +21,7 @@ autorun(() => {
   console.log(m.l1.l2.l3)
 })
 
-m.l1.l2.l3 = 1
+m.l1.l2.l3 = 'a'
 m.l1.l2 = {
-  l3: 2,
+  l3: 'b',
 }

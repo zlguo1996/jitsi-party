@@ -6,7 +6,7 @@ import {action} from 'mobx'
 import {useObserver} from 'mobx-react-lite'
 import React, {useEffect, useRef, useState} from 'react'
 import {addV, subV, useDrag, useGesture} from 'react-use-gesture'
-import {useValue as useTransform} from '../utils/useTransform'
+import {useStore as useTransform} from '../utils/useTransform'
 import Pointer from './Pointer.svg'
 
 const pointerAvatarRatio = 2

@@ -4,7 +4,7 @@ import {makeStyles} from '@material-ui/core/styles'
 import {extractRotation, extractScaleX, multiply, radian2Degree, rotateVector2D, transformPoint2D} from '@models/utils'
 import React, {useEffect, useRef, useState} from 'react'
 import {subV, useGesture} from 'react-use-gesture'
-import {createValue, Provider as TransformProvider} from '../utils/useTransform'
+import {StoreProvider as TransformProvider} from '../utils/useTransform'
 
 interface StyleProps {
   matrix: DOMMatrixReadOnly,
@@ -40,7 +40,7 @@ export const Base: React.FC<BaseProps> = (props: BaseProps) => {
   const [matrix, setMatrix] = useState<DOMMatrixReadOnly>(new DOMMatrixReadOnly())
 
   // changed only when event end, like drag end
-  const [commitedMatrix, setCommitedMatrix] = useState<DOMMatrixReadOnly>(new DOMMatrixReadOnly())
+  const [committedMatrix, setCommitedMatrix] = useState<DOMMatrixReadOnly>(new DOMMatrixReadOnly())
 
   const bind = useGesture(
     {
@@ -113,11 +113,15 @@ export const Base: React.FC<BaseProps> = (props: BaseProps) => {
   }
   const classes = useStyles(styleProps)
 
-  const transfromValue = createValue(commitedMatrix, getContainerAnchor(container))
+  const transformParams = {
+    matrix,
+    committedMatrix,
+    clientPosition: getContainerAnchor(container),
+  }
 
   return (
     <div className={[classes.root, props.className].join(' ')} ref={container}>
-      <TransformProvider value={transfromValue}>
+      <TransformProvider params={transformParams} >
         <div id="map-transform" className={classes.transform}>
           {props.children}
         </div>
