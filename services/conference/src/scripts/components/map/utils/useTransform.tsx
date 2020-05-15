@@ -1,7 +1,7 @@
 import {makeStyles} from '@material-ui/core/styles'
 import {extractRotation, transformPoint2D} from '@models/utils'
 import {useLocalStore} from 'mobx-react-lite'
-import React, {createContext, useContext, useMemo} from 'react'
+import React, {createContext, useContext} from 'react'
 import {addV, subV} from 'react-use-gesture'
 
 interface StyleProps {
