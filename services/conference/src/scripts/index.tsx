@@ -1,6 +1,6 @@
 import {App} from '@components/app'
 import {resolveAtEnd} from '@models/utils'
-import * as store from '@stores/index' // init store (DO NOT delete)
+import {connectionInfo, participants} from '@stores/index' // init store (DO NOT delete)
 import React from 'react'
 import ReactDOM from 'react-dom'
 
